@@ -10,7 +10,7 @@ terraform {
 resource "azuredevops_project" "project" {
   name               = "pcarey_prject"
   description        = "my project terraform"
-  template_type_name = "Basic"
+  work_item_template = "Basic"
   version_control    = "Git"
   visibility         = "private"
 }
