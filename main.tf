@@ -31,11 +31,11 @@ resource "azuredevops_variable_group" "vars" {
   description  = "Managed by Terraform"
   allow_access = true
 
-  #  variable {
-  #    name  = "tfx_token"
-  #    secret_value = var.tfx_token
-  #    is_secret = true
-  #  }
+  variable {
+    name  = "my_token"
+    secret_value = var.tfx_token
+    is_secret = true
+  }
 }
 
 resource "azuredevops_build_definition" "build-def1" {
