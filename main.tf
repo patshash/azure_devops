@@ -8,7 +8,7 @@ terraform {
 }
 
 resource "azuredevops_project" "project" {
-  name               = "pcarey_prject"
+  name               = "pcarey_project"
   description        = "my project terraform"
   work_item_template = "Basic"
   version_control    = "Git"
@@ -32,7 +32,7 @@ resource "azuredevops_variable_group" "vars" {
   allow_access = true
 
   variable {
-    name  = "token"
+    name  = "tfx_token"
     secret_value = var.tfx_token
     is_secret = true
   }
@@ -62,9 +62,4 @@ resource "azuredevops_build_definition" "build-def1" {
     value = "Go Microsoft!"
   }
 
-  variable {
-    name      = "PipelineSecret"
-    secret_value     = "ZGV2cw"
-    is_secret = true
-  }
 }
