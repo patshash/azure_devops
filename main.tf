@@ -24,3 +24,37 @@ resource "azuredevops_git_repository" "repo" {
     source_url  = "https://github.com/patshash/azure_devops.git"
   }
 }
+
+resource "azuredevops_build_definition" "build-def1" {
+  name               = "build-def-CI"
+  project_id         = azuredevops_project.project.id
+
+  ci_trigger {
+    use_yaml = true
+  }
+
+  repository {
+    repo_type   = "TfsGit"
+    repo_id     = azuredevops_git_repository.repo.id
+    branch_name = azuredevops_git_repository.repo.default_branch
+    yml_path    = "azure-pipelines.yml"
+  }
+
+  #  variable_groups = [
+  # azuredevops_variable_group.vars.id
+  #  ]
+
+  variable {
+    name  = "PipelineVariable"
+    value = "Go Microsoft!"
+  }
+
+  variable {
+    name      = "PipelineSecret"
+    secret_value     = "ZGV2cw"
+    is_secret = true
+  }
+}
+~
+~
+~
