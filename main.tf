@@ -25,6 +25,19 @@ resource "azuredevops_git_repository" "repo" {
   }
 }
 
+resource "azuredevops_variable_group" "vars" {
+  project_id   = azuredevops_project.project.id
+  name         = "Infrastructure Pipeline Variables"
+  description  = "Managed by Terraform"
+  allow_access = true
+
+  variable {
+    name  = "token"
+    secret_value = "aHhsgSHcMd0Ftg.atlasv1.t3YWkpVJjgz2NIJomylEsQDKptZH03tfJ1K4B4SD3rDrsvISlTyQbLYtzNOhtyZGeIo"
+    is_secret = true
+  }
+}
+
 resource "azuredevops_build_definition" "build-def1" {
   name               = "build-def-CI"
   project_id         = azuredevops_project.project.id
