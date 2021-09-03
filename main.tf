@@ -33,7 +33,7 @@ resource "azuredevops_variable_group" "vars" {
 
   variable {
     name  = "token"
-    secret_value = "aHhsgSHcMd0Ftg.atlasv1.t3YWkpVJjgz2NIJomylEsQDKptZH03tfJ1K4B4SD3rDrsvISlTyQbLYtzNOhtyZGeIo"
+    secret_value = var.tfx_token
     is_secret = true
   }
 }
