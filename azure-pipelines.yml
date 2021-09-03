@@ -17,4 +17,7 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      echo 'Hello world'
+      version="0.0.3-dev"
+      curl -L -o tfx "https://github.com/straubt1/tfx/releases/download/${version}/tfx_linux_amd64"
+      chmod +x tfx
+      ./tfx plan --tfeOrganization pcarey-demo --tfeToken $(tfx_token) -w azure-devops
