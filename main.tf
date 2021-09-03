@@ -55,6 +55,3 @@ resource "azuredevops_build_definition" "build-def1" {
     is_secret = true
   }
 }
-~
-~
-~
