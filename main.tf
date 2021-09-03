@@ -17,7 +17,7 @@ resource "azuredevops_project" "project" {
 
 resource "azuredevops_git_repository" "repo" {
   project_id = azuredevops_project.project.id
-  name       = "Import an Existing Repository"
+  name       = "Clone of azure_devops"
   initialization {
     init_type   = "Import"
     source_type = "Git"
@@ -40,9 +40,9 @@ resource "azuredevops_build_definition" "build-def1" {
     yml_path    = "azure-pipelines.yml"
   }
 
-  #  variable_groups = [
-  # azuredevops_variable_group.vars.id
-  #  ]
+  variable_groups = [
+    azuredevops_variable_group.vars.id
+  ]
 
   variable {
     name  = "PipelineVariable"
