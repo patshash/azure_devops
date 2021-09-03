@@ -17,7 +17,7 @@ resource "azuredevops_project" "project" {
 
 resource "azuredevops_git_repository" "repo" {
   project_id = azuredevops_project.project.id
-  name       = "Clone of azure_devops"
+  name       = "azure_devops"
   initialization {
     init_type   = "Import"
     source_type = "Git"
@@ -31,11 +31,11 @@ resource "azuredevops_variable_group" "vars" {
   description  = "Managed by Terraform"
   allow_access = true
 
-  variable {
-    name  = "tfx_token"
-    secret_value = var.tfx_token
-    is_secret = true
-  }
+  #  variable {
+  #    name  = "tfx_token"
+  #    secret_value = var.tfx_token
+  #    is_secret = true
+  #  }
 }
 
 resource "azuredevops_build_definition" "build-def1" {
@@ -60,6 +60,12 @@ resource "azuredevops_build_definition" "build-def1" {
   variable {
     name  = "PipelineVariable"
     value = "Go Microsoft!"
+  }
+
+  variable {
+    name  = "tfx_token"
+    secret_value = var.tfx_token
+    is_secret = true
   }
 
 }
