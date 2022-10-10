@@ -1,0 +1,66 @@
+# Starter pipeline
+
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- master
+
+pool:
+  vmImage: ubuntu-latest
+
+
+steps:
+- script: echo Starting Terraform Run
+- task: TerraformInstaller@0
+  inputs:
+    terraformVersion: 'latest'
+  displayName: 'Starting Terraform'
+
+- task: TerraformCLI@0
+  name: TF_Version
+  inputs:
+    command: 'version'
+    allowTelemetryCollection: true
+
+- task: TerraformCLI@0
+  name: TF_fmt
+  inputs:
+    command: 'fmt'
+    commandOptions: '-check'
+    allowTelemetryCollection: true
+
+- task: TerraformCLI@0
+  name: TF_init
+  env:
+    TF_TOKEN_app_terraform_io: $(TF_TOKEN_APP_TERRAFORM_IO)
+  inputs:
+    command: 'init'
+    backendType: 'selfConfigured'
+    allowTelemetryCollection: true
+
+- task: TerraformCLI@0
+  name: TF_validate
+  env:
+    TF_TOKEN_app_terraform_io: $(TF_TOKEN_APP_TERRAFORM_IO)
+  inputs:
+    command: 'validate'
+    allowTelemetryCollection: true
+
+- task: TerraformCLI@0
+  name: TF_plan
+  env:
+    TF_TOKEN_app_terraform_io: $(TF_TOKEN_APP_TERRAFORM_IO)
+  inputs:
+    command: 'plan'
+    allowTelemetryCollection: true
+    publishPlanResults: 'myplan'
+
+- task: TerraformCLI@0
+  name: TF_apply
+  env:
+    TF_TOKEN_app_terraform_io: $(TF_TOKEN_APP_TERRAFORM_IO)
+  inputs:
+    command: 'apply'
+    allowTelemetryCollection: true
